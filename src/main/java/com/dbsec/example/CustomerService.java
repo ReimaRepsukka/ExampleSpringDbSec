@@ -24,7 +24,7 @@ public class CustomerService {
     }
 
     public Map<String, Object> getCustomCustomer(String username){
-        Customer c = this.getCustomer("repe");
+        Customer c = this.getCustomer(username);
 
         List<CustomerInfo> infos = this.getCustomerInfos(c.username);
 
