@@ -1,17 +1,13 @@
 package com.dbsec.example;
 
 import com.dbsec.example.data.Customer;
-import com.dbsec.example.data.CustomerInfo;
-import com.dbsec.example.data.Role;
 import com.dbsec.example.security.CustomerSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 @RestController
@@ -21,6 +17,18 @@ public class CustomerRestAPI {
     CustomerService customerService;
     @Autowired
     CustomerSecurityService customerSecurity;
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registerCustomer(@RequestBody Map<String,String> credentials){
+        
+        customerSecurity.registerUser(
+            credentials.get("username"),
+            credentials.get("password"),
+            credentials.get("role")
+        );
+
+        return new ResponseEntity<>( "User registered", HttpStatus.OK );
+    }
 
     /**
      * Basic authentication login

@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.dbsec.example.CustomerService;
 import com.dbsec.example.data.Customer;
+import com.dbsec.example.data.CustomerRepository;
 import com.dbsec.example.data.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,10 +26,25 @@ public class CustomerSecurityService {
     CustomerService customerService;
     @Autowired
     CustomerPwEncoder encoder;
+    @Autowired
+    CustomerRepository customerRepo;
 
     @Value("${jwt.secret}")
     private String jwtSecret;
 
+
+    public String registerUser(String username, String password, String role){
+
+        Customer customer = new Customer(
+            username,
+            encoder.encode(username),
+            Role.valueOf(role)
+        );
+
+        customerRepo.save(customer);
+
+        return "Customer added";
+    }
 
     /**
      * Checks basic authentication from basic auth header
