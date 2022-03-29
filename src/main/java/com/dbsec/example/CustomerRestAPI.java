@@ -18,6 +18,11 @@ public class CustomerRestAPI {
     @Autowired
     CustomerSecurityService customerSecurity;
 
+    /**
+     * Creates new user from POST JSON information.
+     * @param credentials
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<String> registerCustomer(@RequestBody Map<String,String> credentials){
         
