@@ -47,4 +47,9 @@ public class CustomerService {
     public List<Customer> getCustomers(){
         return customerRepo.findAll();
     }
+
+    public Boolean addNewCustomer(Customer customer){
+        customerRepo.save(customer);
+        return true;
+    }
 }
